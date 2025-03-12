@@ -1,0 +1,213 @@
+/* === Container Utama === */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* === Judul === */
+h2, h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* === Profil Section === */
+.profile-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    object-fit: cover;
+}
+
+/* === Ikon Kamera === */
+.camera-icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: #2c3e50;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* === Menu Ganti Foto === */
+.photo-menu {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2c3e50; /* Warna background lebih gelap */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: white; /* Warna teks jadi putih */
+    padding: 10px;
+    width: 140px;
+    z-index: 100;
+}
+
+.photo-menu button {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    color: white; /* Pastikan teks putih */
+}
+
+.photo-menu button:hover {
+    background: #1a2533; /* Warna hover lebih gelap */
+}
+
+/* === Form Section === */
+.form-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* === Tombol === */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1a2533;
+}
+
+/* === Hapus Akun === */
+.delete-section p {
+    color: red;
+    font-size: 14px;
+}
+
+.delete-btn {
+    background: #E53E3E;
+}
+
+.delete-btn:hover {
+    background: #C53030;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .camera-icon {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    .camera-icon {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    input {
+        font-size: 13px;
+    }
+
+    button {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+    }
+
+    .camera-icon {
+        font-size: 10px;
+        padding: 4px;
+    }
+
+    input {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+    }
+}

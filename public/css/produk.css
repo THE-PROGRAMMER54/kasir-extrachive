@@ -1,0 +1,198 @@
+/* ======= Container ======= */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ======= Judul Halaman ======= */
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2D3748;
+}
+
+/* ======= Tombol Umum ======= */
+.action-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 14px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ======= Warna Tombol ======= */
+.tambah {
+    background-color: #38A169;
+    color: white;
+}
+
+.edit {
+    background-color: #3182CE;
+    color: white;
+}
+
+.delete {
+    background-color: #E53E3E;
+    color: white;
+}
+
+/* Hover Effect */
+.tambah:hover {
+    background-color: #2F855A;
+}
+
+.edit:hover {
+    background-color: #2B6CB0;
+}
+
+.delete:hover {
+    background-color: #C53030;
+}
+
+/* Animasi Klik */
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* ======= Tabel Produk ======= */
+.produk-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #CBD5E0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ======= Header Tabel ======= */
+.produk-table th {
+    background-color: #2D3748;
+    color: white;
+    padding: 14px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* ======= Sel Data ======= */
+.produk-table td {
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #CBD5E0;
+    font-size: 0.95rem;
+}
+
+/* ======= Hover pada Baris ======= */
+.produk-table tbody tr:hover {
+    background-color: #EDF2F7;
+}
+
+/* ======= Wrapper untuk Tombol Aksi ======= */
+.action-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Jarak antar tombol */
+}
+
+/* ======= Menjaga Lebar Kolom Aksi ======= */
+.produk-table td:last-child {
+    width: 160px; /* Atur sesuai kebutuhan */
+}
+
+/* ======= Responsiveness ======= */
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+    }
+
+    .produk-table th,
+    .produk-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .action-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 120px;
+        text-align: center;
+    }
+
+    .produk-table {
+        font-size: 0.85rem;
+    }
+
+    .produk-table th,
+    .produk-table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .produk-table {
+        font-size: 0.8rem;
+    }
+
+    .produk-table th,
+    .produk-table td {
+        padding: 6px;
+    }
+}

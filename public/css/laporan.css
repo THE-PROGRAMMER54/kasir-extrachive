@@ -1,0 +1,211 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ======= Judul ======= */
+h2, h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* ======= Form Filter ======= */
+.filter-form {
+    display: flex;
+    align-items: center; /* Label & Input sejajar */
+    justify-content: center; /* Pusatkan ke tengah */
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Label */
+.filter-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input Date */
+.filter-form input[type="date"] {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    text-align: center; /* Agar teks tanggal berada di tengah */
+}
+
+/* Hover dan Fokus */
+.filter-form input[type="date"]:hover,
+.filter-form input[type="date"]:focus {
+    border-color: #2c3e50;
+    outline: none;
+}
+
+/* Tombol Filter */
+.filter-form button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.filter-form button:hover {
+    background-color: #1a2533;
+}
+
+/* ======= Tabel Umum ======= */
+.table-container {
+    margin-bottom: 30px;
+}
+
+.table-container h3 {
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* ======= Tabel Styling ======= */
+.laporan-table-container {
+    width: 100%;
+    overflow-x: auto; /* Scroll jika tabel terlalu besar */
+}
+
+.laporan-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 600px; /* Agar tabel tidak terlalu kecil */
+}
+
+.laporan-table th,
+.laporan-table td {
+    border: 1px solid #CBD5E0;
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.laporan-table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.laporan-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.laporan-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* ======= Kolom Tanggal ======= */
+.laporan-table td:nth-child(2) {
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+/* ======= Responsiveness ======= */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .filter-form {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .filter-form input[type="date"] {
+        width: 180px;
+    }
+
+    .laporan-table {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .filter-form {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .filter-form input {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .filter-form button {
+        width: 100%;
+        max-width: 150px;
+    }
+
+    /* Tabel lebih kecil di layar sempit */
+    .laporan-table-container {
+        overflow-x: auto;
+    }
+
+    .laporan-table {
+        min-width: 500px; /* Hindari tabel terlalu kecil */
+    }
+
+    .laporan-table th,
+    .laporan-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    .filter-form {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .filter-form input[type="date"] {
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .filter-form button {
+        width: 100%;
+        max-width: 130px;
+    }
+
+    .laporan-table {
+        min-width: 400px;
+    }
+}
