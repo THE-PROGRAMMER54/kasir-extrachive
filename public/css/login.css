@@ -97,9 +97,6 @@ button:hover {
     text-decoration: underline;
 }
 
-/* === RESPONSIVE DESIGN === */
-
-/* Tablet */
 @media (max-width: 768px) {
     .container {
         width: 90%;

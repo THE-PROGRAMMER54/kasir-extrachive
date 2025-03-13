@@ -47,7 +47,7 @@
 
         <!-- Link Login -->
         <p class="login-link">
-            Sudah punya akun? <a href="login.html">Login di sini</a>
+            Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
         </p>
     </div>
 </body>

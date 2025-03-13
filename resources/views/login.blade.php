@@ -29,7 +29,7 @@
 
         <!-- Link Registrasi -->
         <p class="register-link">
-            Belum punya akun? <a href="register.html">Daftar di sini</a>
+            Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a>
         </p>
     </div>
 </body>
