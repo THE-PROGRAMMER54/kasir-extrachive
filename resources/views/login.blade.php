@@ -10,7 +10,11 @@
     <div class="container">
         <h2>Login</h2>
 
-        <form action="proses_login.php" method="POST">
+        @if (session('error-login'))
+            <div class="pesan-error">{{ session('error-login') }}</div>
+        @endif
+        <form action="{{ route('proseslogin') }}" method="POST">
+            @csrf
             <!-- Email -->
             <div class="form-group">
                 <label>Email</label>

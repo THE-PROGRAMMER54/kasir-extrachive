@@ -77,19 +77,29 @@ nav ul li a i {
     vertical-align: middle;
 }
 
-.logout {
-    margin-top: auto;
-    background-color: #E53E3E;
-    padding: 10px;
+/* Tombol logout di bagian bawah */
+.logout-form {
     text-align: center;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    transition: background 0.3s;
+    margin-top: auto;
+    padding: 20px;
 }
 
-.logout:hover {
-    background-color: #C53030;
+/* Desain Tombol Logout */
+.logout-btn {
+    background-color: #dc3545; /* Warna merah */
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #c82333; /* Warna merah lebih gelap saat hover */
 }
 
 /* Main Content */
@@ -144,4 +154,21 @@ nav ul li a i {
     .close-btn {
         display: block;
     }
+}
+.pesan-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.pesan-succes {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
 }

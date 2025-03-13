@@ -6,23 +6,17 @@ use Illuminate\Support\Facades\Route;
 // guest
 Route::middleware('guest')->group(function(){
     Route::get('/',[usercontroller::class ,'login'])->name('login');
+    Route::post('/plogin', [usercontroller::class,'proseslogin'])->name('proseslogin');
 
     Route::get('/register',[usercontroller::class, 'register'])->name('register');
+    Route::post('/pregister', [usercontroller::class,'prosesregist'])->name('prosesregist');
 });
 
 // user
-Route::get('/produk', function () {
-    return view('produk');
-});
-Route::get('/laporan', function () {
-    return view('laporan');
-});
-Route::get('/pengaturan', function () {
-    return view('pengaturan');
-});
-Route::get('/regist', function () {
-    return view('regist');
-});
-Route::get('/login', function () {
-    return view('login');
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');
 });

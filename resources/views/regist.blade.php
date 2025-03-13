@@ -9,18 +9,21 @@
 <body>
     <div class="container">
         <h2>Registrasi</h2>
-
-        <form action="proses_registrasi.php" method="POST" enctype="multipart/form-data">
+        @if (session('error-regist'))
+            <div class="pesan-error">{{ session('error-regist') }}</div>
+        @endif
+        <form action="{{ route('prosesregist') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <!-- Upload Foto -->
             <div class="form-group">
                 <label>Foto Profil</label>
-                <input type="file" name="foto">
+                <input type="file" name="gambar">
             </div>
 
             <!-- Nama -->
             <div class="form-group">
                 <label>Nama</label>
-                <input type="text" name="nama" placeholder="Masukkan Nama" required>
+                <input type="text" name="name" placeholder="Masukkan Nama" required>
             </div>
 
             <!-- Email -->

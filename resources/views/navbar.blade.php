@@ -29,7 +29,10 @@
                 <li><a href="/pengaturan"><i class="ph ph-gear"></i> Pengaturan</a></li>
             </ul>
         </nav>
-        <a href="#" class="logout">Logout</a>
+        <form method="post" class="logout-form" action="{{ route('logout') }}">
+            @csrf
+            <button class="logout-btn">Logout</button>
+        </form>
     </div>
 
     <!-- Main Content -->
