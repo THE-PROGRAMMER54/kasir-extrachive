@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('gambar')->default('profile.jpg');
+            $table->enum('role',['admin','kasir'])->default('kasir');
             $table->string('password');
             $table->timestamps();
         });
