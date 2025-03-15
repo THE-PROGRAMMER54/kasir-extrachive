@@ -18,5 +18,9 @@ Route::middleware('auth')->group(function(){
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/kasir', function () {
+        return view('kasir');
+    })->name('kasir');
+
     Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');
 });

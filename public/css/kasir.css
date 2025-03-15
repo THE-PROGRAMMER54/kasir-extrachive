@@ -1,0 +1,232 @@
+/* Styling Umum */
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Wrapper Search */
+.search {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Input Search */
+.search-bar {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Tambah padding kanan agar ikon tidak tertutup */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Ikon di dalam Input */
+.search i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+}
+
+/* Layout Wrapper */
+.wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* Produk */
+.products {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.product-card {
+    width: calc(33.33% - 10px);
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.product-card .price {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-card input {
+    width: 60px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background: #2980b9;
+}
+
+/* Keranjang */
+.cart {
+    width: 40%;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+}
+
+.cart h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Table Keranjang *//* ===== Scrollable Cart Table ===== */
+.cart-content {
+    max-height: 250px; /* Maksimal tinggi keranjang */
+    overflow-y: auto; /* Bisa di-scroll ke bawah jika penuh */
+    overflow-x: auto; /* Bisa di-scroll ke samping jika tidak cukup */
+    white-space: nowrap; /* Supaya tabel tidak turun ke bawah */
+}
+
+/* Pastikan tabel memiliki min-width agar tidak mengecil */
+.cart-table {
+    width: 100%;
+    min-width: 600px; /* Tambahkan minimal lebar tabel */
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.cart-table th, .cart-table td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Supaya tabel tetap terlihat rapi */
+.cart-table th {
+    background: #f5f5f5;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* Ukuran kolom tetap */
+.cart-table td:nth-child(1) { width: 35%; } /* Nama Produk */
+.cart-table td:nth-child(2) { width: 20%; } /* Harga */
+.cart-table td:nth-child(3) { width: 15%; } /* Jumlah */
+.cart-table td:nth-child(4) { width: 20%; } /* Total */
+.cart-table td:nth-child(5) { width: 10%; } /* Aksi */
+
+/* Pastikan tabel bisa di-scroll */
+.cart {
+    width: 40%;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    overflow: hidden;
+}
+
+.btn-hapus {
+    background: #e74c3c;
+    color: white;
+    padding: 6px 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.btn-hapus:hover {
+    background: #c0392b;
+}
+
+/* Total Harga */
+.total-harga {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    background: #ecf0f1;
+    border-radius: 5px;
+}
+
+/* Form Pembayaran */
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.payment-form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.payment-form input {
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-bayar {
+    background: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.btn-bayar:hover {
+    background: #2980b9;
+}
+
+.kembalian {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d35400;
+    text-align: center;
+}

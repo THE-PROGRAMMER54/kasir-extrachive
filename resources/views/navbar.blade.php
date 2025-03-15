@@ -17,17 +17,29 @@
     <div class="sidebar">
         <button class="close-btn" onclick="toggleSidebar()">×</button>
         <div class="profile">
-            <img src="storage/profile.jpg" alt="Profile Picture">
+            @if (asset(public_path('storage/'.auth()->user()->gambar)))
+                <img src="{{ asset('storage/'.auth()->user()->gambar) }}" alt="gambar">
+            @else
+                <img src="storage/profile.jpg" alt="Profile Picture">
+            @endif
             <h2>putra</h2>
             <p>Admin Kasir</p>
         </div>
         <nav>
             <ul>
-                <li><a href="/"><i class="ph ph-house"></i> Dashboard</a></li>
-                <li><a href="/produk"><i class="ph ph-package"></i> Produk</a></li>
-                <li><a href="/laporan"><i class="ph ph-chart-bar"></i> Laporan</a></li>
-                <li><a href="/pengaturan"><i class="ph ph-gear"></i> Pengaturan</a></li>
+                @if (auth()->user()->role == 'admin')
+                    <li><a href="{{ route('dashboard') }}"><i class="ph ph-house"></i> Dashboard</a></li>
+                    <li><a href="{{ route('kasir') }}"><i class="ph ph-cash-register"></i> Kasir</a></li>
+                    <li><a href="/produk"><i class="ph ph-package"></i> Produk</a></li>
+                    <li><a href="/laporan"><i class="ph ph-chart-bar"></i> Laporan</a></li>
+                    <li><a href="/pengaturan"><i class="ph ph-gear"></i> Pengaturan</a></li>
+                @else
+                    <li><a href="{{ route('kasir') }}"><i class="ph ph-cash-register"></i> Kasir</a></li>
+                    <li><a href="/produk"><i class="ph ph-package"></i> Produk</a></li>
+                    <li><a href="/pengaturan"><i class="ph ph-gear"></i> Pengaturan</a></li>
+                @endif
             </ul>
+
         </nav>
         <form method="post" class="logout-form" action="{{ route('logout') }}">
             @csrf
