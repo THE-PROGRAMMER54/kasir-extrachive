@@ -14,10 +14,9 @@
         @endif
         <form action="{{ route('prosesregist') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <!-- Upload Foto -->
-            <div class="form-group">
-                <label>Foto Profil</label>
-                <input type="file" name="gambar">
+            <div class="foto-container">
+                <img id="gambar" src="storage/profile.jpg" alt="Foto Profil">
+                <input type="file" id="fileInput" name="gambar" hidden>
             </div>
 
             <!-- Nama -->
@@ -55,3 +54,31 @@
     </div>
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        const fileInput = document.getElementById('fileInput');
+        const gambar = document.getElementById('gambar');
+
+        if(!fileInput ||!gambar){
+            console.log('gambar tidak ditemukan');
+            return;
+        }
+
+        gambar.addEventListener('click',function(){
+            console.log("img di klik");
+            fileInput.click();
+        })
+
+        fileInput.addEventListener('change',function(){
+            if(this.files.length > 0){
+                console.log('gambar di pilih:',this.files[0].name);
+                const reader = new FileReader();
+                reader.onload = function(e){
+                    gambar.src = e.target.result;
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        })
+    })
+</script>
