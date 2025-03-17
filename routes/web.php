@@ -23,6 +23,10 @@ Route::middleware('auth')->group(function(){
         return view('kasir');
     })->name('kasir');
 
+    Route::get('/laporan', function () {
+        return view('laporan');
+    })->name('laporan');
+
     Route::get('/produk',[BarangController::class, 'produk'])->name('produk');
 
     Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');

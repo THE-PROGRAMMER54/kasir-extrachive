@@ -38,4 +38,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function barang(){
+        return $this->belongsTo(barang::class);
+    }
 }

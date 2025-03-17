@@ -23,7 +23,7 @@
             <table class="laporan-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Tanggal</th>
                         <th>Produk</th>
                         <th>Jumlah</th>
@@ -57,7 +57,7 @@
             <table class="laporan-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Produk</th>
                         <th>Stok Awal</th>
                         <th>Stok Terjual</th>

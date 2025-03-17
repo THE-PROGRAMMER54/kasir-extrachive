@@ -27,7 +27,7 @@
 <table class="transaction-table">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>No</th>
             <th>Produk</th>
             <th>Jumlah</th>
             <th>Total</th>
