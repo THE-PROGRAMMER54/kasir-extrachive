@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\usercontroller;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/kasir', function () {
         return view('kasir');
     })->name('kasir');
+
+    Route::get('/produk',[BarangController::class, 'produk'])->name('produk');
 
     Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');
 });

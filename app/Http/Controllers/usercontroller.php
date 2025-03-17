@@ -24,7 +24,11 @@ class usercontroller extends Controller
 
             if(Auth::attempt(['email' => $request->email,'password' => $request->password])){
                 $request->session()->regenerate();
-                return redirect()->route('dashboard')->with('success-login', 'Login berhasil');
+                if(Auth::user()->role == 'admin'){
+                    return redirect()->route('dashboard')->with('success-login', 'Login berhasil');
+                }else{
+                    return redirect()->route('kasir')->with('success-login', 'Login berhasil');
+                }
             }else{
                 return redirect()->back()->with('error-login', 'Username atau password salah');
             }

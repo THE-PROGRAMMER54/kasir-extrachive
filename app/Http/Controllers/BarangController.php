@@ -10,9 +10,10 @@ class BarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function produk()
     {
-        //
+        $data = barang::all();
+        return view('produk', ['data' => $data]);
     }
 
     /**

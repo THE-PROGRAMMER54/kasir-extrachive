@@ -13,13 +13,14 @@
 .search {
     position: relative;
     width: 100%;
+    z-index: 1;
     margin-bottom: 15px;
 }
 
 /* Input Search */
 .search-bar {
     width: 100%;
-    padding: 10px 40px 10px 10px; /* Tambah padding kanan agar ikon tidak tertutup */
+    padding: 10px 40px 10px 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
