@@ -26,8 +26,13 @@ Route::middleware('auth')->group(function(){
     Route::get('/laporan', function () {
         return view('laporan');
     })->name('laporan');
-
+    //produk
     Route::get('/produk',[BarangController::class, 'produk'])->name('produk');
+    Route::post('/tporduk',[BarangController::class, 'tporduk'])->name('tporduk');
+    Route::post('/eporduk/{kode_barang}',[BarangController::class, 'eporduk'])->name('eporduk');
+    Route::post('/tstok/{kode_barang}',[BarangController::class, 'tstok'])->name('tstok');
+    Route::post('/deleteproduk/{kode_barang}',[BarangController::class, 'deleteproduk'])->name('deleteproduk');
 
+    //logout
     Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');
 });

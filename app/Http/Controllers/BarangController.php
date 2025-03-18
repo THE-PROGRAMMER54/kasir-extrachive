@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\barang;
+use Exception;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -16,51 +17,90 @@ class BarangController extends Controller
         return view('produk', ['data' => $data]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function tporduk(Request $request){
+        try{
+            $request->validate([
+                'nama_barang' => 'required|string|max:255',
+                'stok' => 'required|integer',
+                'harga' => 'required|integer',
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048|required'
+            ]);
+
+            $produk = new barang();
+            $produk->nama_barang = $request->nama_barang;
+            $produk->stok = $request->stok;
+            $produk->harga = $request->harga;
+            if($request->hasFile('gambar')){
+                $nama_gambar = time()."_".$request->gambar->getClientOriginalName();
+                $request->gambar->move(public_path('storage'), $nama_gambar);
+                $produk->gambar = $nama_gambar;
+            }
+            $produk->save();
+
+            return redirect('/produk')->with(['success' => 'Product berhasil ditambahkan!']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error' => 'Gagal menambah Product, silahkan coba lagi!!, '.$e->getMessage()]);
+        }
+    }
+    public function eporduk(Request $request,string $kode_barang){
+        try{
+            $request->validate([
+                'nama_barang' => 'string|max:255',
+                'stok' => 'integer',
+                'harga' => 'integer',
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048'
+            ]);
+
+            $produk = barang::findOrFail($kode_barang);
+            $produk->nama_barang = $request->nama_barang;
+            $produk->stok = $request->stok;
+            $produk->harga = $request->harga;
+
+            if($request->hasFile('gambar')){
+                $path = public_path('storage/'.$produk->gambar);
+
+                if(file_exists($path)){
+                    unlink($path);
+                }
+
+                $nama_gambar = time()."_".$request->gambar->getClientOriginalName();
+                $request->gambar->move(public_path('storage'), $nama_gambar);
+                $produk->gambar = $nama_gambar;
+            }
+
+            $produk->update();
+
+            return redirect('/produk')->with(['success' => 'Data berhasil diedit!']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error' => 'Gagal menambah data, silahkan coba lagi!!, '.$e->getMessage()]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function tstok(Request $request,string $kode_barang){
+        try{
+            $request->validate(['stok'=> 'integer']);
+            $stok = barang::findOrFail($kode_barang);
+            $stok->stok = $request->stok;
+            $stok->update();
+
+            return redirect()->back()->with(['success' => 'Stok berhasil ditambah!']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error' => 'Gagal menambahkan stok, silahkan coba lagi!!']);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(barang $barang)
-    {
-        //
-    }
+    public function deleteproduk(string $kode_barang){
+        try{
+            $produk = barang::findOrFail($kode_barang);
+            $path = public_path('storage/'.$produk->gambar);
+            if(file_exists($path)){
+                unlink($path);
+            }
+            $produk->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(barang $barang)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, barang $barang)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(barang $barang)
-    {
-        //
+            return redirect('/produk')->with(['success' => 'Data berhasil dihapus!']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error' => 'Gagal menghapus data, silahkan coba lagi!!']);
+        }
     }
 }

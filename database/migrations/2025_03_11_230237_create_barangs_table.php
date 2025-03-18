@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->integer('stok');
             $table->integer('harga');
-            $table->unsignedBigInteger('user_id');
             $table->string('gambar')->default('default-produk.png');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('diskon')->default(0);
             $table->timestamps();
         });

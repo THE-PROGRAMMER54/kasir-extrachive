@@ -22,6 +22,7 @@
                     <th>Nama Produk</th>
                     <th>Harga</th>
                     <th>Stok</th>
+                    <th>Gambar Produk</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -32,20 +33,24 @@
                         <td>{{ $barang->nama_barang }}</td>
                         <td>Rp {{ number_format($barang->harga,'0',',','.') }}</td>
                         <td>{{ number_format($barang->stok,'0',',','.') }}</td>
+                        <td>
+                            <img src="{{ asset('storage/'.$barang->gambar) }}" style="height: 80px; width= 80px; padding: 0;" alt="Gambar Produk">
+                        </td>
                         @if (auth()->user()->role === 'admin')
                             <td>
                                 <div class="action-wrapper">
                                     <button class="btn edit" data-id={{ $barang->kode_barang }}>Edit</button>
-                                    <button class="btn stok"data-id={{ $barang->kode_barang }}>Stok</button>
-                                    <button class="btn delete">Hapus</button>
+                                    <form action="{{ route('deleteproduk',$barang->kode_barang) }}" method="post" onsubmit="return confirm('Apakah anda yakin akan menghapus produk ini?')">
+                                        @csrf
+                                        <button class="btn delete">Hapus</button>
+                                    </form>
                                 </div>
                             </td>
                         @else
                             <td>
                                 <div class="action-wrapper">
-                                    <button class="btn stok" data-id="{{ $barang->kode_barang }}">Tambah Stok</button>
+                                    <button class="btn stok" data-id={{ $barang->kode_barang }}>Tambah Stok</button>
                                 </div>
-                            </td>
                             </td>
                         @endif
                     </tr>
@@ -53,154 +58,174 @@
             @empty
                 <tbody>
                     <tr>
-                        <td colspan="{{ auth()->user()->role == 'admin' ? 5 : 4 }}" class="text-center">Tidak ada data produk</td>
+                        <td colspan="{{ auth()->user()->role == 'admin' ? 6 : 5 }}" class="text-center">Tidak ada data produk</td>
                     </tr>
                 </tbody>
             @endforelse
         </table>
     </div>
-</div>
 
-{{-- form overlay tambah produk --}}
-<div class="overlay" id="formTambah">
-    <div class="form-container">
-        <h3>Tambah Produk</h3>
-        <form id="produkForm">
-            <div class="form-group">
-                <label for="nama">Nama Produk:</label>
-                <input type="text" id="nama" name="nama" required>
-            </div>
+    @if (session('error'))
+        <script>
+            alert('{{ session('error') }}');
+        </script>
+    @endif
 
-            <div class="form-group">
-                <label for="harga">Harga:</label>
-                <input type="number" id="harga" name="harga" required>
-            </div>
+    @if (session('success'))
+        <script>
+            alert('{{ session('success') }}');
+        </script>
+    @endif
 
-            <div class="form-group">
-                <label for="stok">Stok:</label>
-                <input type="number" id="stok" name="stok" required>
-            </div>
+    {{-- form overlay tambah produk --}}
+    <div class="overlay" id="formTambah">
+        <div class="form-container">
+            <h3>Tambah Produk</h3>
+            <form id="produkForm" method="post" action="{{ route('tporduk') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="nama_barang">Nama Produk:</label>
+                    <input type="text" id="nama_barang" name="nama_barang" required>
+                </div>
 
-            <div class="form-group">
-                <label for="gambar">Gambar Produk:</label>
-                <input type="file" id="gambar" name="gambar" required>
-                <img id="preview" src="" alt="Pratinjau Gambar" style="display: none;">
-            </div>
+                <div class="form-group">
+                    <label for="harga">Harga:</label>
+                    <input type="number" id="harga" name="harga" required>
+                </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn">Simpan</button>
-                <button type="button" class="btn btn-cancel" id="batal">Batal</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="stok">Stok:</label>
+                    <input type="number" id="stok" name="stok" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gambar">Gambar Produk:</label>
+                    <input type="file" id="gambar" name="gambar" required>
+                    <img id="preview" src="" alt="Pratinjau Gambar" style="display: none;">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Simpan</button>
+                    <button type="button" class="btn btn-cancel" id="batal">Batal</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-{{-- form overlay edit produk --}}
-<div class="overlay" id="formEdit-{{ $barang->kode_barang }}">
-    <div class="form-container">
-        <h3>Edit Produk</h3>
-        <form id="produkForm">
-            <div class="form-group">
-                <label for="nama">Nama Produk:</label>
-                <input type="text" value="{{ $barang->nama_barang }}" id="nama" name="nama">
-            </div>
+    @foreach ($data as $barang)
+    {{-- form overlay edit produk --}}
+    <div class="overlay" id="formEdit-{{ $barang->kode_barang }}">
+        <div class="form-container">
+            <h3>Edit Produk</h3>
+            <form id="produkForm" enctype="multipart/form-data" action="{{ route('eporduk',$barang->kode_barang) }}" method="post">
+                @csrf
+                <div class="form-group">
+                    <label for="nama_barang">Nama Produk:</label>
+                    <input type="text" value="{{ $barang->nama_barang }}" id="nama_barang" name="nama_barang">
+                </div>
 
-            <div class="form-group">
-                <label for="harga">Harga:</label>
-                <input type="number" id="harga" value="{{ $barang->harga }}" name="harga">
-            </div>
+                <div class="form-group">
+                    <label for="harga">Harga:</label>
+                    <input type="number" id="harga" value="{{ $barang->harga }}" name="harga">
+                </div>
 
-            <div class="form-group">
-                <label for="stok">Stok:</label>
-                <input type="number" value="{{ $barang->stok }}" id="stok" name="stok">
-            </div>
+                <div class="form-group">
+                    <label for="stok">Stok:</label>
+                    <input type="number" value="{{ $barang->stok }}" id="stok" name="stok">
+                </div>
 
-            <div class="form-group">
-                <label for="gambar">Gambar Produk:</label>
-                <input type="file" id="gambar" name="gambar">
-                <img id="preview" src="{{ asset('storage/'.$barang->gambar) }}" alt="Pratinjau Gambar">
-            </div>
+                <div class="form-group">
+                    <label for="gambar">Gambar Produk:</label>
+                    <input type="file" id="gambar" name="gambar">
+                    <img id="preview" src="{{ asset('storage/'.$barang->gambar) }}" alt="Pratinjau Gambar">
+                </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn">Simpan</button>
-                <button type="button" class="btn btn-cancel" id="batal">Batal</button>
-            </div>
-        </form>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Simpan</button>
+                    <button type="button" class="btn btn-cancel" id="batal">Batal</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-{{-- form overlay edit produk --}}
-<div class="overlay" id="formstok-{{ $barang->kode_barang }}">
-    <div class="form-container">
-        <h3>Tambah Stok</h3>
-        <form id="produkForm">
-            <div class="form-group">
-                <label for="stok">Stok:</label>
-                <input type="number" value="{{ $barang->stok }}" id="stok" name="stok">
-            </div>
+    {{-- form overlay stok produk --}}
+    <div class="overlay" id="formstok-{{ $barang->kode_barang }}">
+        <div class="form-container">
+            <h3>Tambah Stok</h3>
+            <form id="produkForm" method="post" action="{{ route('tstok',$barang->kode_barang) }}">
+                @csrf
+                <div class="form-group">
+                    <label for="stok">Stok:</label>
+                    <input type="number" value="{{ $barang->stok }}" id="stok" name="stok">
+                </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn">Simpan</button>
-                <button type="button" class="btn btn-cancel" id="batal">Batal</button>
-            </div>
-        </form>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Simpan</button>
+                    <button type="button" class="btn btn-cancel" id="batal">Batal</button>
+                </div>
+            </form>
+        </div>
     </div>
+    @endforeach
 </div>
 
 <script>
-    // form tambah
-        document.querySelector(".btn.tambah").addEventListener("click", function() {
-            document.getElementById("formTambah").style.display = "flex";
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        // Form tambah produk
+        let tambahButton = document.querySelector(".btn.tambah");
+        if (tambahButton) {
+            tambahButton.addEventListener("click", function () {
+                document.getElementById("formTambah").style.display = "flex";
+            });
 
-        document.getElementById("batal").addEventListener("click", function() {
-            document.getElementById("formTambah").style.display = "none";
-        });
+            document.querySelector("#formTambah .btn-cancel").addEventListener("click", function () {
+                document.getElementById("formTambah").style.display = "none";
+            });
 
-        document.getElementById("gambar").addEventListener("change", function() {
-            let file = event.target.files[0];
-            if(file){
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById("preview").src = e.target.result;
-                    document.getElementById("preview").style.display = "block";
+            document.getElementById("gambar").addEventListener("change", function (event) {
+                let file = event.target.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        let preview = document.getElementById("preview");
+                        preview.src = e.target.result;
+                        preview.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
-            }
-        })
+            });
+        }
 
-    // edit produk
-    document.querySelectorAll(".btn.edit").forEach(button => {
-        button.addEventListener("click", function () {
-            let id = this.getAttribute("data-id");
-            let formEdit = document.getElementById("formEdit-" + id);
-
-            if (formEdit) {
-                formEdit.style.display = "flex";
-            }
+        // Form edit produk
+        let editButtons = document.querySelectorAll(".btn.edit");
+        editButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                let id = this.getAttribute("data-id");
+                let formEdit = document.getElementById("formEdit-" + id);
+                if (formEdit) {
+                    formEdit.style.display = "flex";
+                }
+            });
         });
-    });
 
-    document.querySelectorAll(".btn-cancel").forEach(button => {
-        button.addEventListener("click", function () {
-            this.closest(".overlay").style.display = "none";
+        // Form tambah stok
+        let stokButtons = document.querySelectorAll(".btn.stok");
+        stokButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                let id = this.getAttribute("data-id");
+                let formStok = document.getElementById("formstok-" + id);
+                if (formStok) {
+                    formStok.style.display = "flex";
+                }
+            });
         });
-    });
 
-    // stok produk
-    document.querySelectorAll(".btn.stok").forEach(button => {
-        button.addEventListener("click", function () {
-            let id = this.getAttribute("data-id");
-            let formStok = document.getElementById("formstok-" + id);
-
-            if (formStok) {
-                formStok.style.display = "flex";
-            }
-        });
-    });
-    document.querySelectorAll(".btn-cancel").forEach(button => {
-        button.addEventListener("click", function () {
-            this.closest(".overlay").style.display = "none";
+        // Tombol batal untuk semua overlay
+        let cancelButtons = document.querySelectorAll(".btn-cancel");
+        cancelButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                this.closest(".overlay").style.display = "none";
+            });
         });
     });
 </script>
