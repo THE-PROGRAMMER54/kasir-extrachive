@@ -27,14 +27,21 @@
 }
 
 /* Ikon di dalam Input */
-.search i {
+/* Button di dalam input */
+.search button {
     position: absolute;
-    right: 10px;
+    right: 5px; /* Jarak dari sisi kanan */
     top: 50%;
     transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.search button i {
     font-size: 18px;
     color: #999;
-    cursor: pointer;
 }
 
 /* Layout Wrapper */

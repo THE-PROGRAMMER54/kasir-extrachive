@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield("title")
     <link rel="stylesheet" href="css/navbar.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script>
         function toggleSidebar() {

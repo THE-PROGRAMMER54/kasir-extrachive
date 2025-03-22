@@ -3,6 +3,11 @@
 @section("title")
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/dashboard.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
 @endsection
 
 @section("content")

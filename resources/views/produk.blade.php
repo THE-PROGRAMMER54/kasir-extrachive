@@ -2,6 +2,11 @@
 @section("title")
     <title>Produk</title>
     <link rel="stylesheet" href="css/produk.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
 @endsection
 
 @section("content")

@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->uuid('id_penjualan')->primary();
-            $table->uuid('kode_barang');
-            $table->integer('jumlah');
-            $table->integer('total');
-            $table->integer('total_bayar');
-            $table->integer('kembalian');
-            $table->timestamp('tanggal_beli');
-            $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
+            $table->decimal('jumlah');
+            $table->decimal('total');
+            $table->decimal('total_bayar');
+            $table->decimal('kembalian');
             $table->timestamps();
         });
     }

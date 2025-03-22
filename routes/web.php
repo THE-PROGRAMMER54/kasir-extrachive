@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\usercontroller;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,12 @@ Route::middleware('auth')->group(function(){
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/kasir', function () {
-        return view('kasir');
-    })->name('kasir');
+    // kasir
+    Route::get('/kasir',[PenjualanController::class, 'kasir'])->name('kasir');
+    Route::post('/tkeranjang',[PenjualanController::class, 'tkeranjang'])->name('tkeranjang');
+    Route::post('/bayar',[PenjualanController::class, 'bayar'])->name('bayar');
+    Route::post('/dkeranjang/{kode_barang}',[PenjualanController::class, 'dkeranjang'])->name('dkeranjang');
+    Route::post('/searchk',[PenjualanController::class, 'searchkasir'])->name('searchkasir');
 
     Route::get('/laporan', function () {
         return view('laporan');
