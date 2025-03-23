@@ -15,13 +15,46 @@
     <h2>Laporan Transaksi</h2>
 
     <!-- Form Filter -->
-    <form class="filter-form">
-        <label for="tanggal">Tanggal:</label>
-        <input type="date" id="tanggal" name="tanggal">
+    <form method="post" action="{{ route('tanggalLaporan') }}" class="filter-form">
+        @csrf
+        <label for="start_date">Dari Tanggal:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}">
+
+        <label for="end_date">Sampai Tanggal:</label>
+        <input type="date" id="end_date" name="end_date" value="{{ request('end_date') }}">
+
         <button type="submit">Filter</button>
     </form>
 
-    <!-- Tabel 1: Laporan Penjualan -->
+
+        <!-- Laporan Stok -->
+        <div class="table-container">
+            <h3>Laporan Stok</h3>
+            <div class="laporan-table-container">
+                <table class="laporan-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Produk</th>
+                            <th>Stok Awal</th>
+                            <th>Stok Terjual</th>
+                            <th>Stok Akhir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#101</td>
+                            <td>Kopi</td>
+                            <td>100</td>
+                            <td>40</td>
+                            <td>60</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <!-- Laporan Penjualan -->
     <div class="table-container">
         <h3>Laporan Penjualan</h3>
         <div class="laporan-table-container">
@@ -29,61 +62,25 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Tanggal</th>
                         <th>Produk</th>
                         <th>Jumlah</th>
                         <th>Total</th>
+                        <th>Tanggal</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>#001</td>
-                        <td>12-03-2025</td>
-                        <td>Kopi</td>
-                        <td>10</td>
-                        <td>Rp 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>#002</td>
-                        <td>13-03-2025</td>
-                        <td>Teh</td>
-                        <td>5</td>
-                        <td>Rp 50.000</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Tabel 2: Laporan Stok -->
-    <div class="table-container">
-        <h3>Laporan Stok</h3>
-        <div class="laporan-table-container">
-            <table class="laporan-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Produk</th>
-                        <th>Stok Awal</th>
-                        <th>Stok Terjual</th>
-                        <th>Stok Akhir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#101</td>
-                        <td>Kopi</td>
-                        <td>100</td>
-                        <td>40</td>
-                        <td>60</td>
-                    </tr>
-                    <tr>
-                        <td>#102</td>
-                        <td>Teh</td>
-                        <td>200</td>
-                        <td>70</td>
-                        <td>130</td>
-                    </tr>
+                    @php $no = 1 @endphp
+                    @foreach ($penjualan as $terjual)
+                    @foreach ($terjual->detail_penjualan as $dp)
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $dp->barang->nama_barang ?? 'Barang tidak ditemukan' }}</td>
+                            <td>{{ $dp->jumlah }}</td>
+                            <td>Rp {{ number_format($dp->total, 0, ',', '.') }}</td>
+                            <td>{{ $dp->created_at->setTimezone('Asia/Jakarta')->format('Y-m-d H:i') }}</td>
+                        </tr>
+                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('detail_penjualan', function (Blueprint $table) {
             $table->id();
             $table->uuid('id_penjualan');
-            $table->string('kode_barang');
+            $table->uuid('kode_barang');
             $table->integer('jumlah');
             $table->decimal('total', 10, 2);
             $table->timestamps();
             $table->foreign('id_penjualan')->references('id_penjualan')->on('penjualan')->onDelete('cascade');
+            $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
         });
     }
 

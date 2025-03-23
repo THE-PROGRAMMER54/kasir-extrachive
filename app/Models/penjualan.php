@@ -13,11 +13,7 @@ class penjualan extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function barang(){
-        return $this->hasMany(barang::class);
-    }
-
     public function detail_penjualan(){
-        return $this->belongsTo(detail_penjualan::class);
+        return $this->hasMany(detail_penjualan::class,'id_penjualan','id_penjualan');
     }
 }

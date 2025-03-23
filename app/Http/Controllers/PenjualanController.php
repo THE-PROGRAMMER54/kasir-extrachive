@@ -126,4 +126,42 @@ class PenjualanController extends Controller
             return redirect()->back()->with('error', 'Gagal melakukan pencarian, '. $e->getMessage());
         }
     }
+
+    public function laporan(){
+        $penjualan = penjualan::with('detail_penjualan.barang')->latest()->get();
+
+        $grouped = $penjualan->flatMap->detail_penjualan->groupBy('kode_barang')->map(function ($items) {
+            return [
+                'nama_barang' => $items->first()->barang->nama_barang ?? 'Barang tidak ditemukan',
+                'jumlah' => $items->sum('jumlah'),
+                'total' => $items->sum('total'),
+            ];
+        });
+
+        return view('laporan', compact(['penjualan','grouped']));
+    }
+
+
+    public function tanggalLaporan(Request $request){
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+
+        $penjualan = Penjualan::whereDate('created_at', '>=', $request->start_date)
+            ->whereDate('created_at', '<=', $request->end_date)
+            ->with('detail_penjualan.barang')
+            ->latest()
+            ->get();
+
+        $grouped = $penjualan->flatMap->detail_penjualan->groupBy('kode_barang')->map(function ($items) {
+            return [
+                'nama_barang' => $items->first()->barang->nama_barang ?? 'Barang tidak ditemukan',
+                'jumlah' => $items->sum('jumlah'),
+                'total' => $items->sum('total'),
+            ];
+        });
+
+        return view('laporan', compact('penjualan', 'grouped'));
+    }
 }

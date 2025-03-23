@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\usercontroller;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +28,10 @@ Route::middleware('auth')->group(function(){
     Route::post('/dkeranjang/{kode_barang}',[PenjualanController::class, 'dkeranjang'])->name('dkeranjang');
     Route::post('/searchk',[PenjualanController::class, 'searchkasir'])->name('searchkasir');
 
-    Route::get('/laporan', function () {
-        return view('laporan');
-    })->name('laporan');
+    // laporan
+    Route::get('/laporan',[PenjualanController::class, 'laporan'])->name('laporan');
+    Route::post('/tanggalLaporan',[PenjualanController::class, 'tanggalLaporan'])->name('tanggalLaporan');
+
     //produk
     Route::get('/produk',[BarangController::class, 'produk'])->name('produk');
     Route::post('/tporduk',[BarangController::class, 'tporduk'])->name('tporduk');

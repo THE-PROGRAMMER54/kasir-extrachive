@@ -10,10 +10,11 @@ class barang extends Model
     use HasUuids;
     protected $table = 'barang';
     protected $primaryKey = 'kode_barang';
+    public $keyType = 'string';
     protected $hidden = [];
     protected $guarded = [];
 
-    public function penjualan(){
-        return $this->belongsTo(penjualan::class);
+    public function detail_penjualan(){
+        return $this->hasMany(detail_penjualan::class, 'kode_barang','kode_barang');
     }
 }

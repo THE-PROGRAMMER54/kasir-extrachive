@@ -36,7 +36,7 @@
                     <li><a href="{{ route('dashboard') }}"><i class="ph ph-house"></i> Dashboard</a></li>
                     <li><a href="{{ route('kasir') }}"><i class="ph ph-cash-register"></i> Kasir</a></li>
                     <li><a href="{{ route('produk') }}"><i class="ph ph-package"></i> Produk</a></li>
-                    <li><a href="/laporan"><i class="ph ph-chart-bar"></i> Laporan</a></li>
+                    <li><a href="{{ route('laporan') }}"><i class="ph ph-chart-bar"></i> Laporan</a></li>
                     <li><a href="/pengaturan"><i class="ph ph-gear"></i> Pengaturan</a></li>
                 @else
                     <li><a href="{{ route('kasir') }}"><i class="ph ph-cash-register"></i> Kasir</a></li>
