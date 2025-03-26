@@ -17,9 +17,7 @@ Route::middleware('guest')->group(function(){
 
 // user
 Route::middleware('auth')->group(function(){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard',[PenjualanController::class, 'dashboard'])->name('dashboard');
 
     // kasir
     Route::get('/kasir',[PenjualanController::class, 'kasir'])->name('kasir');
@@ -38,6 +36,17 @@ Route::middleware('auth')->group(function(){
     Route::post('/eporduk/{kode_barang}',[BarangController::class, 'eporduk'])->name('eporduk');
     Route::post('/tstok/{kode_barang}',[BarangController::class, 'tstok'])->name('tstok');
     Route::post('/deleteproduk/{kode_barang}',[BarangController::class, 'deleteproduk'])->name('deleteproduk');
+
+    // pengaturan
+    Route::get('/pengaturan',[usercontroller::class, 'pengaturan'])->name('pengaturan');
+    Route::post('/updatephoto/{id}',[usercontroller::class, 'updatephoto'])->name('updatephoto');
+    Route::post('/deletephoto/{id}',[usercontroller::class, 'deletephoto'])->name('deletephoto');
+    Route::post('/edituser/{id}',[usercontroller::class, 'edituser'])->name('edituser');
+    Route::post('/editpass/{id}',[usercontroller::class, 'editpass'])->name('editpass');
+    Route::post('/deleteakun/{id}',[usercontroller::class, 'deleteakun'])->name('deleteakun');
+
+    // useradmin
+    Route::get('/users',[usercontroller::class, 'users'])->name('users');
 
     //logout
     Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');

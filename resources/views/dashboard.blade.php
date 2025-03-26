@@ -1,7 +1,7 @@
 @extends("navbar")
 
 @section("title")
-    <title>Dashboard</title>
+    <title>Data Users</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link
       rel="stylesheet"
@@ -15,15 +15,15 @@
 <div class="grid-container">
     <div class="card">
         <h2>Total Transaksi</h2>
-        <p>120</p>
+        <p>{{ $penjualan->count('id_penjualan') }}</p>
     </div>
     <div class="card">
         <h2>Total Pendapatan</h2>
-        <p>Rp 10.000.000</p>
+        <p>Rp {{ number_format($data[0]['pendapatan'],0,',','.') }}</p>
     </div>
     <div class="card">
         <h2>Produk Terjual</h2>
-        <p>450</p>
+        <p>{{ $data[0]['terjual'] }}</p>
     </div>
 </div>
 
@@ -40,27 +40,19 @@
         </tr>
     </thead>
     <tbody>
+        @forelse ($detail_transaksi as $item)
         <tr>
-            <td>001</td>
-            <td>Kopi</td>
-            <td>2</td>
-            <td>Rp 20.000</td>
-            <td>2025-03-12</td>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $item->barang->nama_barang }}</td>
+            <td>{{ $item->jumlah }}</td>
+            <td>Rp {{ number_format($item->total,0,',','.') }}</td>
+            <td>{{ $item->updated_at }}</td>
         </tr>
+        @empty
         <tr>
-            <td>002</td>
-            <td>Teh</td>
-            <td>1</td>
-            <td>Rp 10.000</td>
-            <td>2025-03-12</td>
+            <td colspan="5" style="text-align: center;">Tidak Ada Transaksi</td>
         </tr>
-        <tr>
-            <td>003</td>
-            <td>Roti</td>
-            <td>3</td>
-            <td>Rp 30.000</td>
-            <td>2025-03-12</td>
-        </tr>
+        @endforelse
     </tbody>
 </table>
 @endsection

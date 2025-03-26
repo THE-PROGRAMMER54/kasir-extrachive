@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\barang;
 use App\Models\detail_penjualan;
 use App\Models\penjualan;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,9 +13,34 @@ use Illuminate\Validation\Rules\Exists;
 
 class PenjualanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function dashboard(){
+        try{
+            $penjualan = penjualan::all();
+            $barang = barang::all();
+            $detail_transaksi = detail_penjualan::whereDate('created_at',Carbon::today())->with('barang')->latest()->get()->take(10);
+            $data = [];
+            $total = 0;
+            foreach ($penjualan as $item){
+                $totalPendapatan = detail_penjualan::where('id_penjualan', $item->id_penjualan)->sum('total');
+                $total = $total += $totalPendapatan;
+            }
+
+            $terjual = 0;
+            foreach ($barang as $item){
+                $dijual = detail_penjualan::where('kode_barang',$item->kode_barang)->sum('jumlah');
+                $terjual = $terjual += $dijual;
+            }
+
+            $data[] = [
+                'pendapatan' => $total,
+                'terjual' => $terjual
+            ];
+            return view('dashboard',compact(['penjualan','data','detail_transaksi']));
+        }catch(Exception $e){
+            dd($e);
+        }
+    }
+
     public function kasir()
     {
         $barang = barang::all();

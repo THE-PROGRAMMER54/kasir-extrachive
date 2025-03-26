@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class usercontroller extends Controller
 {
@@ -72,6 +73,114 @@ class usercontroller extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect()->route('login')->with('success-logout', 'Logout berhasil');
+        return redirect()->route('login')->with('success', 'Logout berhasil');
+    }
+
+    public function pengaturan(){
+        return view('pengaturan');
+    }
+
+    public function updatephoto(Request $request,string $id){
+        try{
+            $data = User::findOrFail($id);
+            $request->validate([
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048'
+            ]);
+            if($request->hasFile('gambar')){
+                $oldgambar = $data->gambar;
+
+                if($oldgambar != "profile.jpg" && file_exists(public_path('storage/'.$oldgambar))){
+                    unlink(public_path('storage/'.$oldgambar));
+                }
+
+                $nama_gambar = time()."_".$request->gambar->getClientOriginalName();
+                $request->gambar->move(public_path('storage'), $nama_gambar);
+                $data->gambar = $nama_gambar;
+                $data->save();
+            }
+            return redirect()->route('pengaturan')->with('success', 'Foto berhasil diubah');
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal mengganti foto".$e->getMessage()]);
+        }
+    }
+
+    public function deletephoto(string $id){
+        try{
+            $data = User::findOrFail($id);
+            $oldgambar = $data->gambar;
+
+            if($oldgambar!= "profile.jpg" && file_exists(public_path('storage/'.$oldgambar))){
+                unlink(public_path('storage/'.$oldgambar));
+            }
+            $data->gambar = "profile.jpg";
+            $data->save();
+            return redirect()->route('pengaturan')->with('success', 'Foto berhasil dihapus');
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal menghapus foto".$e->getMessage()]);
+        }
+    }
+
+    public function edituser(string $id,Request $request){
+        try{
+            $data = User::findOrFail($id);
+            $request->validate([
+                'name' => 'max:255',
+                'email' => 'max:255'
+            ]);
+            if(!Str::endsWith($request->email,['@gmail.com','@yahoo.com'])){
+                $data->email = $request->email.".com";
+            }
+            if($request->name != ""){
+                $data->name = $request->name;
+            }
+            if($request->email!= ""){
+                $data->email = $request->email;
+            }
+            $data->save();
+            return redirect()->route('pengaturan')->with('success', 'Data berhasil diubah');
+
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal mengedit data user".$e->getMessage()]);
+        }
+    }
+
+    public function editpass(string $id,Request $request){
+        try{
+            $data = User::findOrFail($id);
+            if(hash::check($request->password,$data->password)){
+                $request->validate([
+                    'new-pass' => 'required|min:8',
+                    'confirm-pass' => 'required|same:new-pass'
+                ]);
+
+                $data->password =  bcrypt($request->password);
+                $data->save();
+                return redirect()->route('pengaturan')->with('success', 'Password berhasil diubah');
+            }else{
+                return redirect()->back()->with('error', 'Password lama salah');
+            }
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal mengedit password user".$e->getMessage()]);
+        }
+    }
+
+    public function deleteakun(string $id){
+        try{
+            $data = User::findOrFail($id);
+            $oldgambar = $data->gambar;
+            if($oldgambar != "profile.jpg" && file_exists(public_path('storage/'.$oldgambar))){
+                unlink(public_path('storage/'.$oldgambar));
+            }
+            $data->delete();
+            Auth::logout();
+            return redirect()->route('login')->with('success', 'Akun berhasil dihapus, silahkan daftar kembali');
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal menghapus akun user".$e->getMessage()]);
+        }
+    }
+
+    public function users(){
+        $data = User::all();
+        return view('users',compact('data'));
     }
 }

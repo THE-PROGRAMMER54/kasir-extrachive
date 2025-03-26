@@ -59,7 +59,7 @@ class BarangController extends Controller
             if($request->hasFile('gambar')){
                 $path = public_path('storage/'.$produk->gambar);
 
-                if(file_exists($path)){
+                if(file_exists($path) && $produk->gambar != "default-produk.png"){
                     unlink($path);
                 }
 
@@ -93,7 +93,7 @@ class BarangController extends Controller
         try{
             $produk = barang::findOrFail($kode_barang);
             $path = public_path('storage/'.$produk->gambar);
-            if(file_exists($path)){
+            if(file_exists($path) && $produk->gambar != "default-produk.png"){
                 unlink($path);
             }
             $produk->delete();

@@ -13,6 +13,9 @@
         @if (session('error-login'))
             <div class="pesan-error">{{ session('error-login') }}</div>
         @endif
+        @if (session('success'))
+            <div class="pesan-succes">{{ session('success') }}</div>
+        @endif
         <form action="{{ route('proseslogin') }}" method="POST">
             @csrf
             <!-- Email -->

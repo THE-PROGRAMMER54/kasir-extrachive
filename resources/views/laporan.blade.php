@@ -3,11 +3,7 @@
 @section("title")
     <title>Laporan</title>
     <link rel="stylesheet" href="css/laporan.css">
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
-    />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 @endsection
 
 @section("content")
@@ -42,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($sisa as $barang)
+                        @forelse ($sisa as $barang)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $barang['nama_barang'] }}</td>
@@ -50,7 +46,11 @@
                             <td>{{ $barang['terjual'] }}</td>
                             <td>{{ $barang['sisa'] }}</td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="5"> Tidak Ada Barang</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -72,7 +72,7 @@
                 </thead>
                 <tbody>
                     @php $no = 1 @endphp
-                    @foreach ($penjualan as $terjual)
+                    @forelse ($penjualan as $terjual)
                     @foreach ($terjual->detail_penjualan as $dp)
                         <tr>
                             <td>{{ $no++ }}</td>
@@ -81,8 +81,12 @@
                             <td>Rp {{ number_format($dp->total, 0, ',', '.') }}</td>
                             <td>{{ $dp->created_at->setTimezone('Asia/Jakarta')->format('Y-m-d H:i') }}</td>
                         </tr>
-                    @endforeach
-                @endforeach
+                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5">Tidak Ada Transaksi</td>
+                            </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
