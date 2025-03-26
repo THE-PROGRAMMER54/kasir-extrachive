@@ -29,23 +29,34 @@
         <section class="products">
             @forelse ($data as $product)
                 <div class="product-card">
-                    <form action="{{ route('tkeranjang') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="kode_barang" value="{{ $product->kode_barang }}">
-                        <input type="hidden" name="nama_barang" value="{{ $product->nama_barang }}">
-                        <input type="hidden" name="harga" value="{{ $product->harga }}">
+                    @if ($product['sisa'] > 0)
+                        <form action="{{ route('tkeranjang') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="kode_barang" value="{{ $product['kode_barang'] }}">
+                            <input type="hidden" name="nama_barang" value="{{ $product['nama_barang'] }}">
+                            <input type="hidden" name="harga" value="{{ $product['harga'] }}">
 
-                        @if (!empty($product->gambar) && file_exists(public_path('storage/'.$product->gambar)))
-                            <img src="{{ asset('storage/'.$product->gambar) }}" alt="Produk">
+                            @if (!empty($product['gambar']) && file_exists(public_path('storage/'.$product['gambar'])))
+                                <img src="{{ asset('storage/'.$product['gambar']) }}" alt="Produk">
+                            @else
+                                <img src="{{ asset('storage/default-produk.png') }}" alt="Produk">
+                            @endif
+
+                            <h3>{{ $product['nama_barang']}}</h3>
+                            <p class="price">Rp {{ number_format($product['harga'], 0, ',', '.') }}</p>
+                            <input type="number" name="jumlah" value="1" min="1">
+                            <button class="btn">Tambah ke keranjang</button>
+                        </form>
+                    @else
+                        @if (!empty($product['gambar']) && file_exists(public_path('storage/'.$product['gambar'])))
+                            <img src="{{ asset('storage/'.$product['gambar']) }}" alt="Produk">
                         @else
                             <img src="{{ asset('storage/default-produk.png') }}" alt="Produk">
                         @endif
-
-                        <h3>{{ $product->nama_barang }}</h3>
-                        <p class="price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
-                        <input type="number" name="jumlah" value="1" min="1">
-                        <button class="btn">Tambah ke keranjang</button>
-                    </form>
+                        <h3>{{ $product['nama_barang']}}</h3>
+                        <p class="price">Rp {{ number_format($product['harga'], 0, ',', '.') }}</p>
+                        <button class="btn-habis">Barang Habis</button>
+                    @endif
                 </div>
             @empty
                 <div class="product-card" style="width: 100%;">
@@ -112,7 +123,6 @@
             </form>
         </section>
     </div>
-
     @if (session('error'))
         <script>
             alert('{{ session('error') }}');

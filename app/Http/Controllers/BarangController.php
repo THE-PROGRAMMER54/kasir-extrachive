@@ -80,7 +80,7 @@ class BarangController extends Controller
         try{
             $request->validate(['stok'=> 'integer']);
             $stok = barang::findOrFail($kode_barang);
-            $stok->stok = $request->stok;
+            $stok->stok = $stok->stok += $request->stok;
             $stok->update();
 
             return redirect()->back()->with(['success' => 'Stok berhasil ditambah!']);

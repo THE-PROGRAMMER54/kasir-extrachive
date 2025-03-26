@@ -107,6 +107,21 @@
     background: #2980b9;
 }
 
+.btn-habis {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background: #828282;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-habis:hover {
+    background: #484848;
+}
+
 /* Keranjang */
 .cart {
     width: 40%;

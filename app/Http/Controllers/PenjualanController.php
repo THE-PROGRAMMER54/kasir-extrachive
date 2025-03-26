@@ -17,15 +17,39 @@ class PenjualanController extends Controller
      */
     public function kasir()
     {
-        $data = barang::all();
+        $barang = barang::all();
+        $data = [];
+        foreach ($barang as $item){
+            $terjual = detail_penjualan::where('kode_barang',$item->kode_barang)->sum('jumlah');
+            $sisa = max($item->stok - $terjual ,0);
+
+            $data[] = [
+                'kode_barang' => $item->kode_barang,
+                'nama_barang' => $item->nama_barang,
+                'harga' => $item->harga,
+                'gambar' => $item->gambar,
+                'sisa' => $sisa
+            ];
+        }
         return view('kasir',compact('data'));
     }
 
 
     public function tkeranjang(Request $request){
         try{
-            $cart = session()->get('cart',[]);
             $produk = barang::where('kode_barang', $request->kode_barang)->first();
+            if(!$produk){
+                return redirect()->back()->with('error', 'Barang yang dipilih tidak ditemukan');
+            }
+
+            $terjual = detail_penjualan::where('kode_barang', $request->kode_barang)->sum("jumlah");
+            $sisa = $produk->stok - $terjual;
+            if($sisa < $request->jumlah){
+                return redirect()->back()->with('error', 'Stok barang yang dipilih hanya tersisa '. $sisa);
+            }
+
+            $cart = session()->get('cart',[]);
+
             if(isset($cart[$request->kode_barang])){
                 $cart[$request->kode_barang]['jumlah'] += $request->jumlah;
             }else{
@@ -137,8 +161,20 @@ class PenjualanController extends Controller
                 'total' => $items->sum('total'),
             ];
         });
+        $barang = barang::all();
 
-        return view('laporan', compact(['penjualan','grouped']));
+        $sisa = $barang->map(function ($barang) use ($grouped){
+            $jumlah = $grouped[$barang->kode_barang]['jumlah'] ?? 0;
+            return [
+                'kode_barang' => $barang->kode_barang,
+                'nama_barang' => $barang->nama_barang,
+                'stok' => $barang->stok,
+                'terjual' => $jumlah,
+               'sisa' => $barang->stok - $jumlah,
+            ];
+        });
+
+        return view('laporan', compact(['penjualan','grouped','sisa']));
     }
 
 

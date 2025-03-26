@@ -44,10 +44,11 @@
                         @if (auth()->user()->role === 'admin')
                             <td>
                                 <div class="action-wrapper">
-                                    <button class="btn edit" data-id={{ $barang->kode_barang }}>Edit</button>
+                                    <button class="btn stok" data-id={{ $barang->kode_barang }}><i class="ph ph-plus-circle"></i></button>
+                                    <button class="btn edit" data-id={{ $barang->kode_barang }}><i class="ph ph-pencil"></i> </button>
                                     <form action="{{ route('deleteproduk',$barang->kode_barang) }}" method="post" onsubmit="return confirm('Apakah anda yakin akan menghapus produk ini?')">
                                         @csrf
-                                        <button class="btn delete">Hapus</button>
+                                        <button class="btn delete"><i class="ph ph-trash"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -133,12 +134,6 @@
                     <label for="harga">Harga:</label>
                     <input type="number" id="harga" value="{{ $barang->harga }}" name="harga">
                 </div>
-
-                <div class="form-group">
-                    <label for="stok">Stok:</label>
-                    <input type="number" value="{{ $barang->stok }}" id="stok" name="stok">
-                </div>
-
                 <div class="form-group">
                     <label for="gambar">Gambar Produk:</label>
                     <input type="file" id="gambar" name="gambar">
@@ -161,7 +156,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="stok">Stok:</label>
-                    <input type="number" value="{{ $barang->stok }}" id="stok" name="stok">
+                    <input type="number" id="stok" name="stok">
                 </div>
 
                 <div class="form-actions">

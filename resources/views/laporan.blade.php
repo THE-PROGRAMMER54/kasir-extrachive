@@ -38,17 +38,19 @@
                             <th>Produk</th>
                             <th>Stok Awal</th>
                             <th>Stok Terjual</th>
-                            <th>Stok Akhir</th>
+                            <th>Sisa Stok</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($sisa as $barang)
                         <tr>
-                            <td>#101</td>
-                            <td>Kopi</td>
-                            <td>100</td>
-                            <td>40</td>
-                            <td>60</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $barang['nama_barang'] }}</td>
+                            <td>{{ $barang['stok'] }}</td>
+                            <td>{{ $barang['terjual'] }}</td>
+                            <td>{{ $barang['sisa'] }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
