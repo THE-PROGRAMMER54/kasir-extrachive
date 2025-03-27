@@ -23,7 +23,7 @@
         <table class="produk-table">
             <thead>
                 <tr>
-                    <th>NO</th>
+                    <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
@@ -32,8 +32,13 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($data as $user)
                 <tr>
-                    <td colspan="5" style="padding: 20px;">Tidak ada Users</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->role }}</td>
+                    <td><img src="{{ asset("storage/".$user->gambar) }}" alt="foto profile" style="height: 70px;"></td>
                     <td>
                         <div class="action-wrapper">
                             <button class="btn edit" data-id=><i class="ph ph-pencil"></i> </button>
@@ -44,6 +49,11 @@
                         </div>
                     </td>
                 </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" style="padding: 20px;">Tidak ada Users</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

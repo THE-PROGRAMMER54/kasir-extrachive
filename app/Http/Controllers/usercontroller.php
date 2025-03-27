@@ -127,15 +127,18 @@ class usercontroller extends Controller
                 'name' => 'max:255',
                 'email' => 'max:255'
             ]);
-            if(!Str::endsWith($request->email,['@gmail.com','@yahoo.com'])){
-                $data->email = $request->email.".com";
+
+            if($request->email != ""){
+                if(!Str::endsWith($request->email,['@gmail.com','@yahoo.com'])){
+                    $email = $request->email.".com";
+                    $data->email = $email;
+                }
             }
+
             if($request->name != ""){
                 $data->name = $request->name;
             }
-            if($request->email!= ""){
-                $data->email = $request->email;
-            }
+
             $data->save();
             return redirect()->route('pengaturan')->with('success', 'Data berhasil diubah');
 
