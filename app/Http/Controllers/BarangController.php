@@ -46,14 +46,12 @@ class BarangController extends Controller
         try{
             $request->validate([
                 'nama_barang' => 'string|max:255',
-                'stok' => 'integer',
                 'harga' => 'integer',
                 'gambar' => 'image|mimes:jpeg,png,jpg|max:5048'
             ]);
 
             $produk = barang::findOrFail($kode_barang);
             $produk->nama_barang = $request->nama_barang;
-            $produk->stok = $request->stok;
             $produk->harga = $request->harga;
 
             if($request->hasFile('gambar')){

@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function(){
 
     // useradmin
     Route::get('/users',[usercontroller::class, 'users'])->name('users');
+    Route::post("/editdatauser/{id}",[usercontroller::class, "editdatauser"])->name('editdatauser');
+    Route::post('/deleteuserakun/{id}',[usercontroller::class, 'deleteuserakun'])->name('deleteuserakun');
 
     //logout
     Route::post('/logout',[usercontroller::class, 'logout'])->name('logout');

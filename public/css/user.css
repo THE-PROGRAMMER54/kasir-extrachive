@@ -226,72 +226,99 @@
     margin: 10px 0;
 }
 
-/* form overlay */
+        /* Styling select box */
+select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border 0.3s ease-in-out;
+}
 
-        /* FORM MODAL */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
+/* Saat select box di-hover */
+select:hover {
+    border-color: #007bff;
+}
 
-        .form-container {
-            background: white;
-            padding: 20px;
-            width: 50%;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
+/* Saat select box aktif / focus */
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
 
-        .form-container h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
+/* Styling untuk opsi dalam select */
+select option {
+    padding: 10px;
+}
 
-        .form-group {
-            margin-bottom: 10px;
-            text-align: left;
-        }
+/* FORM MODAL */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+.form-container {
+    background: white;
+    padding: 20px;
+    width: 50%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
 
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+.form-container h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
 
-        .form-group img {
-            display: block;
-            width: 100%;
-            max-width: 150px;
-            margin: 10px auto;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
+.form-group {
+    margin-bottom: 10px;
+    text-align: left;
+}
 
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
 
-        .btn-cancel {
-            background: #dc3545;
-        }
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-        .btn-cancel:hover {
-            background: #c82333;
-        }
+.form-group img {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    margin: 10px auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn-cancel {
+    background: #dc3545;
+}
+
+.btn-cancel:hover {
+    background: #c82333;
+}

@@ -186,4 +186,50 @@ class usercontroller extends Controller
         $data = User::all();
         return view('users',compact('data'));
     }
+
+    public function editdatauser(Request $request,string $id){
+        try{
+            $user = User::findOrFail($id);
+            $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|max:255',
+                'role' => 'required',
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048|nullable'
+            ]);
+
+            $user->name = $request->name;
+            if(!Str::endsWith($request->email,["@gmail.com","@yahoo.com"])){
+                $email = $request->email.".com";
+                $user->email = $email;
+            }
+            $user->role = $request->role;
+            if($request->hasFile('gambar')){
+                $oldgambar = $user->gambar;
+                if($oldgambar!= "profile.jpg" && file_exists(public_path('storage/'.$oldgambar))){
+                    unlink(public_path('storage/'.$oldgambar));
+                }
+                $nama_gambar = time()."_".$request->gambar->getClientOriginalName();
+                $request->gambar->move(public_path('storage'), $nama_gambar);
+                $user->gambar = $nama_gambar;
+            }
+            $user->save();
+            return redirect()->route('users')->with('success', 'Data berhasil diubah');
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal mengedit data user".$e->getMessage()]);
+        }
+    }
+
+    public function deleteuserakun(string $id){
+        try{
+            $data = User::findOrFail($id);
+            $oldgambar = $data->gambar;
+            if($oldgambar != "profile.jpg" && file_exists(public_path('storage/'.$oldgambar))){
+                unlink(public_path('storage/'.$oldgambar));
+            }
+            $data->delete();
+            return redirect()->back()->with('success', 'Akun user berhasil dihapus');
+        }catch(Exception $e){
+            return redirect()->back()->with(["error" =>"gagal menghapus akun user".$e->getMessage()]);
+        }
+    }
 }

@@ -13,7 +13,7 @@
 <div class="container">
     <h1 class="page-title">Data Produk</h1>
 
-    @if (auth()->user()->role === 'admin')
+    @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
     <div class="action-buttons">
         <button class="btn tambah">+ Tambah Produk</button>
     </div>
@@ -41,7 +41,7 @@
                         <td>
                             <img src="{{ asset('storage/'.$barang->gambar) }}" style="height: 80px; width= 80px; padding: 0;" alt="Gambar Produk">
                         </td>
-                        @if (auth()->user()->role === 'admin')
+                        @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
                             <td>
                                 <div class="action-wrapper">
                                     <button class="btn stok" data-id={{ $barang->kode_barang }}><i class="ph ph-plus-circle"></i></button>
@@ -64,7 +64,7 @@
             @empty
                 <tbody>
                     <tr>
-                        <td colspan="{{ auth()->user()->role == 'admin' ? 6 : 5 }}" class="text-center">Tidak ada data produk</td>
+                        <td colspan="{{ in_array(auth()->user()->role, ['admin','super admin'])? 6 : 5 }}" class="text-center">Tidak ada data produk</td>
                     </tr>
                 </tbody>
             @endforelse
