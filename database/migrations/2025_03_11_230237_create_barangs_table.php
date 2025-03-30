@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->string('gambar')->default('default-produk.png');
             $table->integer('diskon')->default(0);
+            $table->integer('hasil_diskon')->nullable();
             $table->timestamps();
         });
     }

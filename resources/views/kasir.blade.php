@@ -43,7 +43,14 @@
                             @endif
 
                             <h3>{{ $product['nama_barang']}}</h3>
-                            <p class="price">Rp {{ number_format($product['harga'], 0, ',', '.') }}</p>
+                            @if ($product['diskon'] > 0)
+                                <p class="diskon">Diskon: {{ $product['diskon'] }}%</p>
+                                <p class="price-before">Rp {{ number_format($product['harga'], 0, ',', '.') }}</p>
+                                <p class="price">Rp {{ number_format($product['harga'] - ($product['harga'] * $product['diskon'] / 100), 0, ',', '.') }}</p>
+                            @else
+                                <p class="price">Rp {{ number_format($product['harga'], 0, ',', '.') }}</p>
+                            @endif
+
                             <input type="number" name="jumlah" value="1" min="1">
                             <button class="btn">Tambah ke keranjang</button>
                         </form>

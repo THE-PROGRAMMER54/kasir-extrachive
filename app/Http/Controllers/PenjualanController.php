@@ -52,7 +52,9 @@ class PenjualanController extends Controller
                 'nama_barang' => $item->nama_barang,
                 'harga' => $item->harga,
                 'gambar' => $item->gambar,
-                'sisa' => $item->stok
+                'sisa' => $item->stok,
+                'diskon' => $item->diskon,
+                'hasil_diskon' => $item->hasil_diskon,
             ];
         }
         return view('kasir',compact('data'));

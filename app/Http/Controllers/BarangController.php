@@ -23,13 +23,24 @@ class BarangController extends Controller
                 'nama_barang' => 'required|string|max:255',
                 'stok' => 'required|integer',
                 'harga' => 'required|integer',
-                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048|required'
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048|required',
+                'diskon' => 'integer'
             ]);
+            if($request->diskon < 0 || $request->diskon >100){
+                return redirect()->back()->with(['error' => 'Diskon harus antara 0 dan 100!']);
+            }
 
             $produk = new barang();
             $produk->nama_barang = $request->nama_barang;
             $produk->stok = $request->stok;
             $produk->harga = $request->harga;
+            $produk->diskon = $request->diskon;
+            if ($request->diskon > 0) {
+                $produk->hasil_diskon = $request->harga - ($request->harga * $request->diskon / 100);
+            } else {
+                $produk->hasil_diskon = $request->harga;
+            }
+
             if($request->hasFile('gambar')){
                 $nama_gambar = time()."_".$request->gambar->getClientOriginalName();
                 $request->gambar->move(public_path('storage'), $nama_gambar);
@@ -47,12 +58,20 @@ class BarangController extends Controller
             $request->validate([
                 'nama_barang' => 'string|max:255',
                 'harga' => 'integer',
-                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048'
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048',
+                'diskon' => 'integer'
             ]);
 
             $produk = barang::findOrFail($kode_barang);
             $produk->nama_barang = $request->nama_barang;
             $produk->harga = $request->harga;
+            $produk->diskon = $request->diskon;
+            if ($request->diskon > 0) {
+                $produk->hasil_diskon = $request->harga - ($request->harga * $request->diskon / 100);
+            } else {
+                $produk->hasil_diskon = $request->harga;
+            }
+
 
             if($request->hasFile('gambar')){
                 $path = public_path('storage/'.$produk->gambar);

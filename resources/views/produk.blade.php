@@ -27,6 +27,7 @@
                     <th>Nama Produk</th>
                     <th>Harga</th>
                     <th>Stok</th>
+                    <th>Diskon</th>
                     <th>Gambar Produk</th>
                     <th>Aksi</th>
                 </tr>
@@ -36,8 +37,13 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $barang->nama_barang }}</td>
-                        <td>Rp {{ number_format($barang->harga,'0',',','.') }}</td>
+                        @if ($barang->diskon != 0)
+                            <td>Rp {{ number_format($barang->hasil_diskon,'0',',','.') }}</td>
+                        @else
+                            <td>Rp {{ number_format($barang->harga,'0',',','.') }}</td>
+                        @endif
                         <td>{{ number_format($barang->stok,'0',',','.') }}</td>
+                        <td>{{ $barang->diskon }}%</td>
                         <td>
                             <img src="{{ asset('storage/'.$barang->gambar) }}" style="height: 80px; width= 80px; padding: 0;" alt="Gambar Produk">
                         </td>
@@ -105,6 +111,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="diskon">Diskon:</label>
+                    <input type="number" id="diskon" name="diskon" min="0" max="100" required>
+                </div>
+
+                <div class="form-group">
                     <label for="gambar">Gambar Produk:</label>
                     <input type="file" id="gambar" name="gambar" required>
                     <img id="preview" src="" alt="Pratinjau Gambar" style="display: none;">
@@ -134,6 +145,12 @@
                     <label for="harga">Harga:</label>
                     <input type="number" id="harga" value="{{ $barang->harga }}" name="harga">
                 </div>
+
+                <div class="form-group">
+                    <label for="diskon">Diskon:</label>
+                    <input type="number" id="diskon" value="{{ $barang->diskon }}" min="0" max="100" name="diskon">
+                </div>
+
                 <div class="form-group">
                     <label for="gambar">Gambar Produk:</label>
                     <input type="file" id="gambar" name="gambar">

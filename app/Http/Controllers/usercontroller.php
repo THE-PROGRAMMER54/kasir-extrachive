@@ -50,7 +50,7 @@ class usercontroller extends Controller
                 'email' => 'required|max:255|string',
                 'password' => 'required|min:8',
                 'confirm_password' => 'required|same:password',
-                'gambar' => 'image|mimes:jpeg,png,jpg|max:2048|nullable'
+                'gambar' => 'image|mimes:jpeg,png,jpg|max:5048|nullable'
             ]);
 
             $user = new User;

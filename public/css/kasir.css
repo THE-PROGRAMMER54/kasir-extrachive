@@ -253,3 +253,21 @@
     color: #d35400;
     text-align: center;
 }
+
+.price-before {
+    text-decoration: line-through;
+    color: red;
+    font-size: 12px; /* Lebih kecil dari harga diskon */
+}
+
+.price {
+    font-weight: bold;
+    color: green;
+    font-size: 16px; /* Lebih besar agar lebih menonjol */
+}
+
+.diskon {
+    font-size: 12px; /* Ukuran kecil untuk diskon */
+    color: orange;
+    font-weight: bold;
+}
