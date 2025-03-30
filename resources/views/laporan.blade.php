@@ -42,7 +42,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $barang['nama_barang'] }}</td>
-                            <td>{{ $barang['stok'] }}</td>
+                            <td>{{ $barang['awal'] }}</td>
                             <td>{{ $barang['terjual'] }}</td>
                             <td>{{ $barang['sisa'] }}</td>
                         </tr>

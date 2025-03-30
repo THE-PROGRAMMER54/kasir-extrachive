@@ -46,15 +46,13 @@ class PenjualanController extends Controller
         $barang = barang::all();
         $data = [];
         foreach ($barang as $item){
-            $terjual = detail_penjualan::where('kode_barang',$item->kode_barang)->sum('jumlah');
-            $sisa = max($item->stok - $terjual ,0);
 
             $data[] = [
                 'kode_barang' => $item->kode_barang,
                 'nama_barang' => $item->nama_barang,
                 'harga' => $item->harga,
                 'gambar' => $item->gambar,
-                'sisa' => $sisa
+                'sisa' => $item->stok
             ];
         }
         return view('kasir',compact('data'));
@@ -68,8 +66,7 @@ class PenjualanController extends Controller
                 return redirect()->back()->with('error', 'Barang yang dipilih tidak ditemukan');
             }
 
-            $terjual = detail_penjualan::where('kode_barang', $request->kode_barang)->sum("jumlah");
-            $sisa = $produk->stok - $terjual;
+            $sisa = $produk->stok;
             if($sisa < $request->jumlah){
                 return redirect()->back()->with('error', 'Stok barang yang dipilih hanya tersisa '. $sisa);
             }
@@ -77,6 +74,12 @@ class PenjualanController extends Controller
             $cart = session()->get('cart',[]);
 
             if(isset($cart[$request->kode_barang])){
+                $sisa_stok = $sisa - $cart[$request->kode_barang]['jumlah'];
+                if($sisa_stok == 0){
+                    return redirect()->back()->with('error', 'Stok barang yang dipilih sudah habis');
+                }elseif($sisa_stok < $request->jumlah){
+                    return redirect()->back()->with('error', 'Stok barang yang dipilih hanya tersisa '. $sisa_stok);
+                }
                 $cart[$request->kode_barang]['jumlah'] += $request->jumlah;
             }else{
                 $cart[$request->kode_barang] = [
@@ -154,6 +157,11 @@ class PenjualanController extends Controller
                 $detail_penjualan->jumlah = $detail['jumlah'];
                 $detail_penjualan->total = $detail['jumlah'] * $detail['harga'];
                 $detail_penjualan->save();
+
+                $stok = barang::where('kode_barang', $detail['kode_barang'])->first();
+                $terjual = $stok->stok - $detail['jumlah'];
+                $stok->stok = $terjual;
+                $stok->save();
             }
             $kembalian =$request->bayar - $total;
             session()->forget('cart');
@@ -194,9 +202,9 @@ class PenjualanController extends Controller
             return [
                 'kode_barang' => $barang->kode_barang,
                 'nama_barang' => $barang->nama_barang,
-                'stok' => $barang->stok,
                 'terjual' => $jumlah,
-               'sisa' => $barang->stok - $jumlah,
+                'sisa' => $barang->stok,
+                'awal' => $barang->stok += $jumlah,
             ];
         });
 

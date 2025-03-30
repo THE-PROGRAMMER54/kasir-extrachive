@@ -29,7 +29,7 @@
         <section class="products">
             @forelse ($data as $product)
                 <div class="product-card">
-                    @if ($product['sisa'] > 0)
+                    @if (($product['sisa'] - (session('cart')[$product['kode_barang']]['jumlah'] ?? 0)) > 0)
                         <form action="{{ route('tkeranjang') }}" method="post">
                             @csrf
                             <input type="hidden" name="kode_barang" value="{{ $product['kode_barang'] }}">
