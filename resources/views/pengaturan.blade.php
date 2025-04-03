@@ -52,7 +52,7 @@
             <label>Email</label>
             <input type="email" name="email" placeholder="Masukkan email baru">
 
-            <button type="submit">Simpan Perubahan</button>
+            <button class="btninput" type="submit">Simpan Perubahan</button>
         </form>
     </div>
 
@@ -70,7 +70,7 @@
             <label>Konfirmasi Password</label>
             <input type="password" name="confirm-pass" placeholder="Ulangi password baru">
 
-            <button type="submit">Ubah Password</button>
+            <button class="btninput" type="submit">Ubah Password</button>
         </form>
     </div>
 
@@ -85,6 +85,7 @@
     </div>
 </div>
 
+@endsection
 @if (session("error"))
     <script>
         alert('{{ session("error") }}');
@@ -113,4 +114,3 @@
         }
     })
 </script>
-@endsection

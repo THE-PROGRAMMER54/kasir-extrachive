@@ -108,7 +108,7 @@ input {
 }
 
 /* === Tombol === */
-button {
+.btninput {
     width: 100%;
     padding: 10px;
     background: #2c3e50;
@@ -119,18 +119,32 @@ button {
     transition: 0.3s;
 }
 
-button:hover {
+.btninput:hover {
     background: #1a2533;
 }
 
 /* === Hapus Akun === */
 .delete-section p {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
     color: red;
     font-size: 14px;
 }
 
 .delete-btn {
     background: #E53E3E;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
 }
 
 .delete-btn:hover {

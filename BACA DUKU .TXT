@@ -1,0 +1,15 @@
+langkah langkah penggunaan
+1.buka terminal lalu
+-> composer install
+-> cp .env.example .env
+-> php artisan key:generate
+
+2.buka file env lalu konfigurasi databasenya
+3.jalankan migrasi laravel nya menggunakan terminal
+-> php artisan migrate
+4.jalankan aplikasi laravel nya menggunakan terminal
+-> php artisan serve
+
+untuk mendaftarkan user secara default gunakan seeder di terminal
+-> php artisan db:seed
+untuk cek user yang sudah di daftarkan buka folder database/seeders/userseeder.php
